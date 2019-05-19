@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setOfThings returns an array of things 1`] = `
+Array [
+  "DA DA DA 1",
+  "DA DA DA 2",
+  "DA DA DA 3",
+  "DA DA DA 4",
+]
+`;
+
+exports[`stuffToDo returns an array of things 1`] = `
+Array [
+  "read script",
+  "read outline 1",
+  "read outline 2",
+  "read outline 3",
+  "read outline 4",
+  "write part of 1",
+  "write part of 2",
+  "write part of 3",
+  "write part of 4",
+  "work on character outline",
+]
+`;
