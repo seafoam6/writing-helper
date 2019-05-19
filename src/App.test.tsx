@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App, {arrOfNumbers, setOfThings, stuffToDo, getRandomThing} from './App';
+import App from './App';
+import {setOfThings, stuffToDo } from './data/stuffToDo'
+import {arrOfNumbers, getRandomThing} from './utils/generic'
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -28,7 +30,8 @@ describe('stuffToDo', () => {
 
 describe('getRandomThing', () => {
   it('returns an array of things', () => {
-    const thing = getRandomThing();
-    expect(stuffToDo.indexOf(thing)).not.toEqual(-1)
+    const list = ['a', 'b', 'c']
+    const thing = getRandomThing(list);
+    expect(list.indexOf(thing)).not.toEqual(-1)
   })
 })
