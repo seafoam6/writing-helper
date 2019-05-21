@@ -24,7 +24,9 @@ const App: React.FC = () => {
   return (
     <Wrapper>
       <Button onClick={handleClick} label={buttonText} />
-      <Button onClick={() => setButtonText(defaultText)} label="Reset" />
+      {buttonText !== defaultText && (
+        <Button onClick={() => setButtonText(defaultText)} label="Reset" />
+      )}
     </Wrapper>
   );
 };
