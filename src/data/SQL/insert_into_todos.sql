@@ -1,0 +1,1 @@
+INSERT into todos(description, created_on) VALUES('work on character outline', now());
