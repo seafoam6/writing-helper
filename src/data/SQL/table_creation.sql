@@ -1,6 +1,6 @@
 
 
-// id, string
+# id, string
 
 CREATE TABLE todos(
    id SERIAL PRIMARY KEY,
