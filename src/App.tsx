@@ -18,7 +18,7 @@ const App: React.FC = () => {
   const handleClick = () => {
     const thingToDo = getRandomThing(stuffToDo);
 
-    setButtonText(thingToDo);
+    setButtonText(thingToDo.text);
   };
 
   return (

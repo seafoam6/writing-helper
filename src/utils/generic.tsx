@@ -8,6 +8,7 @@ export const arrOfNumbers = (count: number): number[] => {
   return thing;
 };
 
-export const getRandomThing = (list: string[]) => {
-  return list[Math.floor(Math.random() * list.length)];
+export const getRandomThing = (list: { text: string; active: boolean }[]) => {
+  const active = list.filter(i => i.active);
+  return active[Math.floor(Math.random() * list.length)];
 };
