@@ -1,30 +1,30 @@
+const db = require("./queries/todoQueries");
 const express = require("express");
-const { Pool } = require("pg");
 require("dotenv").config();
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
 const port = 3000;
 
+app.options("*", cors());
+
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
+
+// test in postman
 // Do data modeling
-// write rest routes
+// make front end calls
 
-const client = new Pool({
-  user: process.env.PGUSER,
-  host: process.env.PGHOST,
-  database: process.env.PGDATABASE,
-  password: process.env.PGPASSWORD,
-  port: process.env.PGPORT
-});
-client.connect();
-
-let dumb = "";
-
-client.query("SELECT * FROM todos", (err, res) => {
-  dumb = res;
-  client.end();
-});
-
-app.get("/", (req, res) => res.send(dumb));
+app.get("/todos", cors(), db.getTodos);
+app.get("/todos/:id", cors(), db.getTodoById);
+app.post("/todos", cors(), db.createTodo);
+app.put("/todos/:id", cors(), db.updateTodo);
+app.delete("/todos/:id", cors(), db.deleteTodo);
 
 app.listen(port, () =>
   console.log(`Writing Helpers listening on port ${port}!`)

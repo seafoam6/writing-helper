@@ -1,3 +1,5 @@
+import { Todo } from '../utils/interfaces';
+
 export const arrOfNumbers = (count: number): number[] => {
   let i = 0;
   const thing = [];
@@ -8,7 +10,7 @@ export const arrOfNumbers = (count: number): number[] => {
   return thing;
 };
 
-export const getRandomThing = (list: { text: string; active: boolean }[]) => {
+export const getRandomTodo = (list: Todo[]) => {
   const active = list.filter(i => i.active);
   return active[Math.floor(Math.random() * list.length)];
 };
