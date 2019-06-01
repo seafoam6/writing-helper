@@ -2,7 +2,7 @@ import { Todo } from '../utils/interfaces';
 
 export const arrOfNumbers = (count: number): number[] => {
   let i = 0;
-  const thing = [];
+  const thing: number[] = [];
   while (i < count) {
     i++;
     thing.push(i);

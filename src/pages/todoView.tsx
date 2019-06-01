@@ -3,9 +3,10 @@ import { Button } from 'grommet';
 import styled from 'styled-components';
 import { stuffToDo } from '../data/stuffToDo';
 import { getRandomTodo } from '../utils/generic';
-import { fetchTodos } from '../utils/api';
+import { fetchTodos } from '../data/api';
 import { AxiosResponse } from 'axios';
 import { Todo } from '../utils/interfaces';
+import { Store } from './../data/store.js';
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,60 +15,15 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-const useEndpoint = () => {
-  const [res, setRes] = useState({
-    todos: [],
-    complete: false,
-    pending: false,
-    error: false
-  });
-
-  useEffect(() => {
-    setRes({
-      todos: [],
-      pending: true,
-      error: false,
-      complete: false
-    });
-    fetchTodos()
-      .then(res =>
-        setRes({
-          todos: res ? res.data : [],
-          pending: false,
-          error: false,
-          complete: true
-        })
-      )
-      .catch(() =>
-        setRes({
-          todos: [],
-          pending: false,
-          error: true,
-          complete: true
-        })
-      );
-  }, []);
-
-  let random = '';
-
-  if (res.todos.length > 0) {
-    const thing = getRandomTodo(res.todos);
-    if (thing.hasOwnProperty('description')) {
-      random = thing.description;
-    }
-  }
-
-  return { res, random };
-};
-
 const TodoView: React.FC = () => {
-  const defaultText = 'Loading';
-
-  const todoRes = useEndpoint();
+  const { state, dispatch } = React.useContext(Store);
 
   return (
     <Wrapper>
-      <Button label={todoRes.random} />
+      {state.todos.map(i => {
+        return <Button label={i.description} />;
+      })}
+
       {/* {buttonText !== defaultText && (
         <Button onClick={() => setButtonText(defaultText)} label="Reset" />
       )} */}

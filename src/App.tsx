@@ -6,8 +6,10 @@ import { getRandomTodo } from './utils/generic';
 import TodoView from './pages/todoView';
 import TodoEdit from './pages/todoEdit';
 import TodoAdd from './pages/todoAdd';
+import { Store } from './data/store';
 
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { getTodosAction } from './data/todos/actions';
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,8 +19,15 @@ const Wrapper = styled.div`
 `;
 
 const App: React.FC = () => {
+  const { state, dispatch } = React.useContext(Store);
+
+  React.useEffect(() => {
+    state.todos.length === 0 && getTodosAction(dispatch);
+  });
+
   return (
     <Router>
+      {console.log(state)}
       <Grommet full={true}>
         <Grid
           rows={['30%', '70%']}
