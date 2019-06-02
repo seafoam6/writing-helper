@@ -1,6 +1,7 @@
 import React from 'react';
+import { IContextProps } from '../utils/interfaces';
 
-export const Store = React.createContext();
+export const Store = React.createContext({} as IContextProps);
 
 const initialState = {
   todos: [],

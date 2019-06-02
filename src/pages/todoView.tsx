@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'grommet';
 import styled from 'styled-components';
-import { stuffToDo } from '../data/stuffToDo';
-import { getRandomTodo } from '../utils/generic';
-import { fetchTodos } from '../data/api';
-import { AxiosResponse } from 'axios';
-import { Todo } from '../utils/interfaces';
-import { Store } from './../data/store.js';
+import { Store } from './../data/store';
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,18 +10,14 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-const TodoView: React.FC = () => {
-  const { state, dispatch } = React.useContext(Store);
+const TodoView: React.FC = (props, context) => {
+  const { state } = React.useContext(Store);
 
   return (
     <Wrapper>
-      {state.todos.map(i => {
-        return <Button label={i.description} />;
+      {state.todos.map((i, idx) => {
+        return <Button label={i.description} key="idx" />;
       })}
-
-      {/* {buttonText !== defaultText && (
-        <Button onClick={() => setButtonText(defaultText)} label="Reset" />
-      )} */}
     </Wrapper>
   );
 };
