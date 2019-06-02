@@ -12,6 +12,8 @@ function reducer(state, action) {
   switch (action.type) {
     case 'GET_TODOS':
       return { ...state, todos: action.payload };
+    // case "CREATE_TODO":
+
     default:
       return state;
   }

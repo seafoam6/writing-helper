@@ -2,6 +2,7 @@ import * as React from 'react';
 // import React, { useState } from "react";
 import { Button, FormField, Select, TextInput, TextArea, Box } from 'grommet';
 import { Store } from './../data/store';
+import { createTodoAction } from '../data/todos/actions';
 
 import {
   Formik,
@@ -17,17 +18,19 @@ interface MyFormValues {
 }
 
 const TodoAdd: React.SFC<{}> = () => {
-  const { state } = React.useContext(Store);
+  const { dispatch } = React.useContext(Store);
   return (
     <div>
       <Formik
         initialValues={{ description: '' }}
-        onSubmit={(
+        onSubmit={async (
           values: MyFormValues,
           actions: FormikActions<MyFormValues>
         ) => {
           console.log({ values, actions });
-          alert(JSON.stringify(values, null, 2));
+          //  alert(JSON.stringify(values, null, 2));
+          const thing = await createTodoAction(values.description);
+          //if (thing) dispatch(thing);
           actions.setSubmitting(false);
         }}
         render={(formikBag: FormikProps<MyFormValues>) => (

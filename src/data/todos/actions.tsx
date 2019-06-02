@@ -1,4 +1,4 @@
-import { fetchTodos } from '../api';
+import { fetchTodos, fetchCreateTodo } from '../api';
 
 export const getTodosAction = async dispatch => {
   const data = await fetchTodos();
@@ -9,22 +9,31 @@ export const getTodosAction = async dispatch => {
   });
 };
 
-const getTodoByIdAction = (id: number) => {
+export const getTodoByIdAction = (id: number) => {
   return {
     type: 'GET_TODO_BY_ID',
     id
   };
 };
 
-const createTodoAction = (description: string) => {
-  return {
-    type: 'CREATE_TODO'
-  };
+export const createTodoAction = async (description: string) => {
+  const response = await fetchCreateTodo(description);
+  if (response) {
+    console.log(response);
+  }
+  // return {
+  //   type: "CREATE_TODO",
+  //   payload: 'dd'
+  // };
 };
 
 // TODO: break this into two seperate actions
 // update queries
-const updateTodoAction = (id: number, description: string, active: boolean) => {
+export const updateTodoAction = (
+  id: number,
+  description: string,
+  active: boolean
+) => {
   return {
     type: 'UPDATE_TODO',
     id,
@@ -33,16 +42,9 @@ const updateTodoAction = (id: number, description: string, active: boolean) => {
   };
 };
 
-const deleteTodoAction = (id: number) => {
+export const deleteTodoAction = (id: number) => {
   return {
     type: 'DELETE_TODO',
     id
   };
-};
-
-export default {
-  getTodoByIdAction,
-  createTodoAction,
-  updateTodoAction,
-  deleteTodoAction
 };

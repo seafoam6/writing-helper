@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 
 const todosUrl = 'http://localhost:3000/todos';
 
-const fetchTodos = () => {
+export const fetchTodos = () => {
   return axios
     .get(todosUrl)
     .then((response: void | AxiosResponse) => {
@@ -15,4 +15,14 @@ const fetchTodos = () => {
     });
 };
 
-export { fetchTodos };
+export const fetchCreateTodo = (description: string) => {
+  return axios
+    .post(todosUrl, { description })
+    .then((response: void | AxiosResponse) => {
+      return response;
+    })
+    .catch(error => {
+      // handle error
+      console.log(error);
+    });
+};

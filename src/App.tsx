@@ -18,6 +18,11 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
+const CoolHeading = styled(Heading)`
+  padding-left: 1em;
+  margin-top: auto;
+`;
+
 const App: React.FC = () => {
   const { state, dispatch } = React.useContext(Store);
 
@@ -42,8 +47,8 @@ const App: React.FC = () => {
             { name: 'main', start: [1, 1], end: [1, 1] }
           ]}
         >
-          <Box gridArea="header" background="brand">
-            <Heading>Writing Helper</Heading>
+          <Box gridArea="header" background="brand" pad="medium">
+            <CoolHeading>Writing Helper</CoolHeading>
           </Box>
           <Box gridArea="nav" background="light-5">
             <nav>
