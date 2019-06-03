@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import React, { useState } from "react";
 import { Button, FormField, Select, TextInput, TextArea, Box } from 'grommet';
 import { Store } from './../data/store';
 import { createTodoAction } from '../data/todos/actions';
@@ -28,9 +27,9 @@ const TodoAdd: React.SFC<{}> = () => {
           actions: FormikActions<MyFormValues>
         ) => {
           console.log({ values, actions });
-          //  alert(JSON.stringify(values, null, 2));
+
           const thing = await createTodoAction(values.description);
-          //if (thing) dispatch(thing);
+          dispatch(thing);
           actions.setSubmitting(false);
         }}
         render={(formikBag: FormikProps<MyFormValues>) => (

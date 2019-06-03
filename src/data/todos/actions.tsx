@@ -1,4 +1,5 @@
 import { fetchTodos, fetchCreateTodo } from '../api';
+import { getResultFromAPICall } from '../../utils/generic';
 
 export const getTodosAction = async dispatch => {
   const data = await fetchTodos();
@@ -19,12 +20,21 @@ export const getTodoByIdAction = (id: number) => {
 export const createTodoAction = async (description: string) => {
   const response = await fetchCreateTodo(description);
   if (response) {
-    console.log(response);
+    const payload = getResultFromAPICall(response);
+    return {
+      payload,
+      type: 'CREATE_TODO'
+    };
+    // console.log(thing);
+
+    // return Object.assign(
+    //   {},
+    //   { type: "CREATE_TODO" },
+    //   getResultFromAPICall(response)
+    // );
+  } else {
+    throw new Error('create todo action failed');
   }
-  // return {
-  //   type: "CREATE_TODO",
-  //   payload: 'dd'
-  // };
 };
 
 // TODO: break this into two seperate actions

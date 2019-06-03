@@ -1,18 +1,23 @@
 import React from 'react';
-import { IContextProps } from '../utils/interfaces';
+import { IContextProps, IState } from '../utils/interfaces';
 
-export const Store = React.createContext({} as IContextProps);
-
-const initialState = {
+const initialState: IState = {
   todos: [],
   currentText: ''
 };
+
+export const Store = React.createContext({
+  state: initialState
+} as IContextProps);
 
 function reducer(state, action) {
   switch (action.type) {
     case 'GET_TODOS':
       return { ...state, todos: action.payload };
-    // case "CREATE_TODO":
+    case 'CREATE_TODO':
+      const temp = { ...state, todos: [...state.todos, action.payload] };
+      console.log(temp);
+      return temp;
 
     default:
       return state;

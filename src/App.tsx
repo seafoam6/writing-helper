@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
-import { Button, Box, Grid, Grommet, Heading } from 'grommet';
+import React from 'react';
+import { Box, Grid, Grommet, Heading } from 'grommet';
 import styled from 'styled-components';
-import { stuffToDo } from './data/stuffToDo';
-import { getRandomTodo } from './utils/generic';
 import TodoView from './pages/todoView';
 import TodoEdit from './pages/todoEdit';
+import TodoList from './pages/todoList';
 import TodoAdd from './pages/todoAdd';
 import { Store } from './data/store';
-
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { getTodosAction } from './data/todos/actions';
 
@@ -28,11 +26,10 @@ const App: React.FC = () => {
 
   React.useEffect(() => {
     state.todos.length === 0 && getTodosAction(dispatch);
-  });
+  }, [state]);
 
   return (
     <Router>
-      {console.log(state)}
       <Grommet full={true}>
         <Grid
           rows={['30%', '70%']}
@@ -62,12 +59,21 @@ const App: React.FC = () => {
                 <li>
                   <Link to="/add/">Todo add</Link>
                 </li>
+                <li>
+                  <Link to="/list/">Todo View All</Link>
+                </li>
               </ul>
             </nav>
           </Box>
-          <Box gridArea="main" background="light-2">
+          <Box
+            gridArea="main"
+            background="light-2"
+            overflow="scroll"
+            pad="small"
+          >
             <Wrapper>
               <Route path="/" exact component={TodoView} />
+              <Route path="/list/" component={TodoList} />
               <Route path="/edit/" component={TodoEdit} />
               <Route path="/add/" component={TodoAdd} />
             </Wrapper>

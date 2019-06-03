@@ -14,3 +14,7 @@ export const getRandomTodo = (list: ITodo[]) => {
   const active = list.filter(i => i.active);
   return active[Math.floor(Math.random() * list.length)];
 };
+
+export const getResultFromAPICall = response => {
+  return response.data.rows[0];
+};

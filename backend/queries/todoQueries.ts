@@ -33,13 +33,13 @@ const createTodo = (request, response) => {
   const created_on = new Date();
 
   pool.query(
-    "INSERT INTO todos (description, created_on) VALUES ($1, $2)",
+    "INSERT INTO todos (description, created_on) VALUES ($1, $2) RETURNING description, created_on, id, active",
     [description, created_on],
     (error, results) => {
       if (error) {
         throw error;
       }
-      response.status(201).send(`Todos added with ID: ${results.id}`);
+      response.status(201).send(results);
     }
   );
 };
