@@ -1,9 +1,14 @@
 import React from 'react';
-import { IContextProps, IState } from '../utils/interfaces';
+import { IContextProps, ITodosState, ITodo } from '../utils/interfaces';
+import { normalizeTodos } from '../utils/generic';
 
-const initialState: IState = {
-  todos: [],
-  currentText: ''
+const initialState: ITodosState = {
+  todos: {
+    ids: [] as number[],
+    byId: {},
+    active: [] as number[],
+    inactive: [] as number[]
+  }
 };
 
 export const Store = React.createContext({
@@ -13,11 +18,10 @@ export const Store = React.createContext({
 function reducer(state, action) {
   switch (action.type) {
     case 'GET_TODOS':
-      return { ...state, todos: action.payload };
+      const norm = normalizeTodos(action.payload);
+      return { ...state, todos: { ...norm } };
     case 'CREATE_TODO':
-      const temp = { ...state, todos: [...state.todos, action.payload] };
-      console.log(temp);
-      return temp;
+      return { ...state, byId: {} };
 
     default:
       return state;
@@ -26,6 +30,8 @@ function reducer(state, action) {
 
 export function StoreProvider(props) {
   const [state, dispatch] = React.useReducer(reducer, initialState);
+
+  // put selectors here!
   const value = { state, dispatch };
   return <Store.Provider value={value}>{props.children}</Store.Provider>;
 }

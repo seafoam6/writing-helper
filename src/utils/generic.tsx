@@ -1,4 +1,4 @@
-import { ITodo } from '../utils/interfaces';
+import { ITodo, ITodosState } from '../utils/interfaces';
 
 export const arrOfNumbers = (count: number): number[] => {
   let i = 0;
@@ -17,4 +17,24 @@ export const getRandomTodo = (list: ITodo[]) => {
 
 export const getResultFromAPICall = response => {
   return response.data.rows[0];
+};
+
+export const breakUpTodo = (acc, cur) => {
+  acc.ids.push(cur.id);
+  acc.byId[cur.id] = cur;
+  if (cur.active) {
+    acc.active.push(cur.id);
+  } else {
+    acc.inactive.push(cur.id);
+  }
+  return acc;
+};
+
+export const normalizeTodos = (todos: [ITodo]): any => {
+  return todos.reduce(breakUpTodo, {
+    ids: [] as number[],
+    byId: {},
+    active: [] as number[],
+    inactive: [] as number[]
+  });
 };

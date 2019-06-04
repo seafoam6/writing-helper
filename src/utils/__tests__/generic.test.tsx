@@ -1,4 +1,25 @@
-import { getResultFromAPICall } from '../generic';
+import { getResultFromAPICall, normalizeTodos } from '../generic';
+
+const todosDummy = [
+  {
+    id: 18,
+    description: '👀🎬read scenes, leave notes',
+    created_on: '2019-06-02T18:06:42.051Z',
+    active: true
+  },
+  {
+    id: 19,
+    description: '👀🎬read scenes, rewrite outline to match notes',
+    created_on: '2019-06-02T18:06:42.111Z',
+    active: true
+  },
+  {
+    id: 20,
+    description: '🎬🗒Split acts into sub acts',
+    created_on: '2019-06-02T18:06:42.128Z',
+    active: false
+  }
+];
 
 const thing = {
   data: {
@@ -81,6 +102,36 @@ describe('getResultFromAPICall', () => {
       description: 'test3',
       created_on: '2019-06-02T21:46:52.633Z',
       id: 51
+    });
+  });
+});
+
+describe('normalizeTodos', () => {
+  it('returns a normalized state', () => {
+    expect(normalizeTodos(todosDummy)).toEqual({
+      ids: [18, 19, 20],
+      byId: {
+        '18': {
+          id: 18,
+          description: '👀🎬read scenes, leave notes',
+          created_on: '2019-06-02T18:06:42.051Z',
+          active: true
+        },
+        '19': {
+          id: 19,
+          description: '👀🎬read scenes, rewrite outline to match notes',
+          created_on: '2019-06-02T18:06:42.111Z',
+          active: true
+        },
+        '20': {
+          id: 20,
+          description: '🎬🗒Split acts into sub acts',
+          created_on: '2019-06-02T18:06:42.128Z',
+          active: false
+        }
+      },
+      active: [18, 19],
+      inactive: [20]
     });
   });
 });

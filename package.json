@@ -28,6 +28,7 @@
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
+    "reselect": "^4.0.0",
     "styled-components": "^4.2.0",
     "ts-node-dev": "^1.0.0-pre.39",
     "typescript": "3.4.5"

@@ -10,10 +10,11 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { getTodosAction } from './data/todos/actions';
 
 const Wrapper = styled.div`
-  display: flex;
+  display: block;
   align-items: center;
   justify-content: space-around;
   height: 100%;
+  padding: 12px;
 `;
 
 const CoolHeading = styled(Heading)`
@@ -25,7 +26,7 @@ const App: React.FC = () => {
   const { state, dispatch } = React.useContext(Store);
 
   React.useEffect(() => {
-    state.todos.length === 0 && getTodosAction(dispatch);
+    getTodosAction(dispatch);
   }, [state]);
 
   return (
@@ -51,10 +52,7 @@ const App: React.FC = () => {
             <nav>
               <ul>
                 <li>
-                  <Link to="/">Todo View</Link>
-                </li>
-                <li>
-                  <Link to="/edit/">Todo Edit</Link>
+                  <Link to="/">Get random todo </Link>
                 </li>
                 <li>
                   <Link to="/add/">Todo add</Link>
@@ -65,16 +63,11 @@ const App: React.FC = () => {
               </ul>
             </nav>
           </Box>
-          <Box
-            gridArea="main"
-            background="light-2"
-            overflow="scroll"
-            pad="small"
-          >
+          <Box gridArea="main" background="light-2" overflow="scroll">
             <Wrapper>
               <Route path="/" exact component={TodoView} />
               <Route path="/list/" component={TodoList} />
-              <Route path="/edit/" component={TodoEdit} />
+              <Route path="/edit/:id" component={TodoEdit} />
               <Route path="/add/" component={TodoAdd} />
             </Wrapper>
           </Box>

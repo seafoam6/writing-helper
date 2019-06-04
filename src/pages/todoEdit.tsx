@@ -1,7 +1,26 @@
 import React from 'react';
+import { Button, Box } from 'grommet';
+import { Store } from './../data/store';
 
-const TodoEdit: React.FC = () => {
-  return <div>To be filled in later</div>;
+interface IProps {
+  match: any;
+}
+
+// change data structure to byId
+// write selectors
+
+const TodoEdit: React.SFC<IProps> = ({ match }) => {
+  const { state, dispatch } = React.useContext(Store);
+  console.log(state);
+  // console.log(state.ids.filter(i => i.id === 43));
+  // const thing = state.ids.filter(i => i.id === 43).length
+  // ? state.ids.filter(i => i.id === 43)
+  // : [{ id: 33, description: "" }];
+  return (
+    <div>
+      {/* <Button label={`${thing[0].id} ${thing[0].description}`} /> */}
+    </div>
+  );
 };
 
 export default TodoEdit;
