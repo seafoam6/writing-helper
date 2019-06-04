@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, Grommet, Heading } from 'grommet';
+import { Box, Grid, Grommet, Heading, Button } from 'grommet';
 import styled from 'styled-components';
 import TodoView from './pages/todoView';
 import TodoEdit from './pages/todoEdit';
@@ -48,20 +48,24 @@ const App: React.FC = () => {
           <Box gridArea="header" background="brand" pad="medium">
             <CoolHeading>Writing Helper</CoolHeading>
           </Box>
-          <Box gridArea="nav" background="light-5">
-            <nav>
-              <ul>
-                <li>
-                  <Link to="/">Get random todo </Link>
-                </li>
-                <li>
-                  <Link to="/add/">Todo add</Link>
-                </li>
-                <li>
-                  <Link to="/list/">Todo View All</Link>
-                </li>
-              </ul>
-            </nav>
+          <Box
+            gridArea="nav"
+            background="light-5"
+            direction="column"
+            gap="small"
+            pad="small"
+          >
+            <Heading>Todos</Heading>
+
+            <Link to="/">
+              <Button fill={true} label="Get random todo" />
+            </Link>
+            <Link to="/add/">
+              <Button fill={true} label="Todo add" />
+            </Link>
+            <Link to="/list/">
+              <Button fill={true} label="Todo View All" />
+            </Link>
           </Box>
           <Box gridArea="main" background="light-2" overflow="scroll">
             <Wrapper>
