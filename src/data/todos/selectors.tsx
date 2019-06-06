@@ -1,20 +1,17 @@
 import { ITodosState } from '../../utils/interfaces';
+import { createSelector } from 'reselect';
 
-export const TodoSelectors = (state: ITodosState) => {
-  const getTodos = state => state.todos;
+export const getTodos = (state: ITodosState) => state.todos;
 
-  const getTodoIds = state => {
-    return getTodos(state).ids;
-  };
+export const getTodoIds = (state: ITodosState) => state.todos.ids;
 
-  const getAllTodos = () => {
-    const todos = getTodos(state);
-    const ids = getTodoIds(state);
+export const getAllTodos = createSelector(
+  getTodos,
+  getTodoIds,
+  (todos, ids) => {
     return ids.map(id => todos.byId[id]);
-  };
+  }
+);
 
-  return {
-    getTodoIds,
-    getAllTodos
-  };
-};
+export const getTodoById = (state: ITodosState, id: string) =>
+  state.todos.byId[id];

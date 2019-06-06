@@ -3,9 +3,9 @@ import { Box, Grid, Grommet, Heading, Button } from 'grommet';
 import styled from 'styled-components';
 import TodoView from './pages/todoView';
 import TodoEdit from './pages/todoEdit';
+import TodoSingleView from './pages/todoSingleView';
 import TodoList from './pages/todoList';
 import TodoAdd from './pages/todoAdd';
-import { Store } from './data/store';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { getTodosAction } from './data/todos/actions';
 
@@ -23,11 +23,9 @@ const CoolHeading = styled(Heading)`
 `;
 
 const App: React.FC = () => {
-  const { state, dispatch } = React.useContext(Store);
-
-  React.useEffect(() => {
-    getTodosAction(dispatch);
-  }, [state]);
+  // React.useEffect(() => {
+  //   getTodosAction(dispatch);
+  // }, [state]);
 
   return (
     <Router>
@@ -72,6 +70,7 @@ const App: React.FC = () => {
               <Route path="/" exact component={TodoView} />
               <Route path="/list/" component={TodoList} />
               <Route path="/edit/:id" component={TodoEdit} />
+              <Route path="/todo/:id" component={TodoSingleView} />
               <Route path="/add/" component={TodoAdd} />
             </Wrapper>
           </Box>

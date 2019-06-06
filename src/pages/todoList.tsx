@@ -1,16 +1,14 @@
 import React from 'react';
 import { Button, Box } from 'grommet';
-import { Store } from './../data/store';
-import { TodoSelectors } from '../data/todos/selectors';
 
 const TodoView: React.FC = (props, context) => {
-  const { state, dispatch } = React.useContext(Store);
-  const { getAllTodos } = TodoSelectors(state);
-  const allTodos = getAllTodos();
+  // const { state, dispatch } = React.useContext(Store);
+  // const { getAllTodos } = TodoSelectors(state);
+  // const allTodos = getAllTodos();
 
   return (
     <Box direction="row" gap="small" pad="small" wrap={true}>
-      {allTodos.map((todo, idx) => {
+      {/* {allTodos.map((todo, idx) => {
         return (
           <Button
             margin="xsmall"
@@ -19,7 +17,7 @@ const TodoView: React.FC = (props, context) => {
             href={`/edit/${todo.id}`}
           />
         );
-      })}
+      })} */}
     </Box>
   );
 };

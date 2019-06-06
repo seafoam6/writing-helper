@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, FormField, Select, TextInput, TextArea, Box } from 'grommet';
-import { Store } from './../data/store';
+
 import { createTodoAction } from '../data/todos/actions';
 
 import {
@@ -17,7 +17,6 @@ interface MyFormValues {
 }
 
 const TodoAdd: React.SFC<{}> = () => {
-  const { dispatch } = React.useContext(Store);
   return (
     <div>
       <Formik
@@ -29,7 +28,7 @@ const TodoAdd: React.SFC<{}> = () => {
           console.log({ values, actions });
 
           const thing = await createTodoAction(values.description);
-          dispatch(thing);
+          //  dispatch(thing);
           actions.setSubmitting(false);
         }}
         render={(formikBag: FormikProps<MyFormValues>) => (

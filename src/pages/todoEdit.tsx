@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Box } from 'grommet';
-import { Store } from './../data/store';
 
 interface IProps {
   match: any;
@@ -10,8 +9,8 @@ interface IProps {
 // write selectors
 
 const TodoEdit: React.SFC<IProps> = ({ match }) => {
-  const { state, dispatch } = React.useContext(Store);
-  console.log(state);
+  // const { state, dispatch } = React.useContext(Store);
+  // console.log(state);
   // console.log(state.ids.filter(i => i.id === 43));
   // const thing = state.ids.filter(i => i.id === 43).length
   // ? state.ids.filter(i => i.id === 43)

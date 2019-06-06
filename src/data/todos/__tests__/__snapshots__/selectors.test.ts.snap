@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getAllTodos returns all todos 1`] = `
+Array [
+  Object {
+    "active": true,
+    "created_on": "2019-06-02T18:06:42.051Z",
+    "description": "👀🎬read scenes, leave notes",
+    "id": 18,
+  },
+  Object {
+    "active": true,
+    "created_on": "2019-06-02T18:06:42.111Z",
+    "description": "👀🎬read scenes, rewrite outline to match notes",
+    "id": 19,
+  },
+  Object {
+    "active": false,
+    "created_on": "2019-06-02T18:06:42.128Z",
+    "description": "🎬🗒Split acts into sub acts",
+    "id": 20,
+  },
+]
+`;
+
+exports[`getTodoById returns all todos 1`] = `
+Object {
+  "active": true,
+  "created_on": "2019-06-02T18:06:42.051Z",
+  "description": "👀🎬read scenes, leave notes",
+  "id": 18,
+}
+`;
