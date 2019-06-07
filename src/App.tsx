@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Box, Grid, Grommet, Heading, Button } from 'grommet';
 import styled from 'styled-components';
 import TodoView from './pages/todoView';
@@ -8,6 +8,9 @@ import TodoList from './pages/todoList';
 import TodoAdd from './pages/todoAdd';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { getTodosAction } from './data/todos/actions';
+import { useDispatch } from 'react-redux';
+import { fetchTodos } from './data/api';
+import { useAsyncEffect } from 'use-async-effect';
 
 const Wrapper = styled.div`
   display: block;
@@ -23,9 +26,13 @@ const CoolHeading = styled(Heading)`
 `;
 
 const App: React.FC = () => {
-  // React.useEffect(() => {
-  //   getTodosAction(dispatch);
-  // }, [state]);
+  const dispatch = useDispatch();
+
+  useAsyncEffect(async () => {
+    const todos = await fetchTodos();
+
+    dispatch(getTodosAction(todos));
+  });
 
   return (
     <Router>

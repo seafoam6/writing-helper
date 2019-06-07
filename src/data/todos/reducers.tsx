@@ -1,7 +1,6 @@
 import React from 'react';
-import { IContextProps, ITodosState, ITodo } from '../utils/interfaces';
-import { normalizeTodos } from '../utils/generic';
-import { createStore } from 'redux';
+import { IContextProps, ITodosState, ITodo } from '../../utils/interfaces';
+import { normalizeTodos } from '../../utils/generic';
 
 const initialState: ITodosState = {
   todos: {
@@ -12,10 +11,12 @@ const initialState: ITodosState = {
   }
 };
 
-function reducer(state, action) {
+export default function reducer(state = initialState, action) {
+  console.log(action, state);
   switch (action.type) {
     case 'GET_TODOS':
       const norm = normalizeTodos(action.payload);
+      console.log({ ...state, todos: { ...norm } });
       return { ...state, todos: { ...norm } };
     case 'CREATE_TODO':
       return { ...state, byId: {} };
@@ -24,5 +25,3 @@ function reducer(state, action) {
       return state;
   }
 }
-
-export const store = createStore(reducer);

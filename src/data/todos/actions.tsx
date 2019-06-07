@@ -1,13 +1,12 @@
 import { fetchTodos, fetchCreateTodo, fetchGetTodoById } from '../api';
 import { getResultFromAPICall } from '../../utils/generic';
 
-export const getTodosAction = async dispatch => {
-  const data = await fetchTodos();
-
-  return dispatch({
+export const getTodosAction = data => {
+  console.log(data);
+  return {
     type: 'GET_TODOS',
     payload: data ? data.data : []
-  });
+  };
 };
 
 export const createTodoAction = async (description: string) => {

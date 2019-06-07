@@ -31,10 +31,13 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
     "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-saga": "^1.0.2",
     "reselect": "^4.0.0",
     "styled-components": "^4.2.0",
     "ts-node-dev": "^1.0.0-pre.39",
-    "typescript": "3.4.5"
+    "typescript": "3.4.5",
+    "use-async-effect": "^2.0.1"
   },
   "scripts": {
     "start": "PORT=5000 react-scripts start",
