@@ -3,7 +3,7 @@ import { Button, Box } from 'grommet';
 import { useSelector } from 'react-redux';
 import { getAllTodos } from '../data/todos/selectors';
 
-const TodoView: React.FC = (props, context) => {
+const TodoList: React.FC = (props, context) => {
   const { allTodos } = useSelector(state => ({
     allTodos: getAllTodos(state)
   }));
@@ -24,4 +24,4 @@ const TodoView: React.FC = (props, context) => {
   );
 };
 
-export default TodoView;
+export default TodoList;
