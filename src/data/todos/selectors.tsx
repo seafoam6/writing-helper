@@ -5,6 +5,8 @@ export const getTodos = (state: ITodosState) => state.todos;
 
 export const getTodoIds = (state: ITodosState) => state.todos.ids;
 
+export const getActiveTodoIds = (state: ITodosState) => state.todos.active;
+
 export const getAllTodos = createSelector(
   getTodos,
   getTodoIds,
@@ -13,5 +15,18 @@ export const getAllTodos = createSelector(
   }
 );
 
+export const getAllActiveTodos = createSelector(
+  getTodos,
+  getActiveTodoIds,
+  (todos, ids) => {
+    return ids.map(id => todos.byId[id]);
+  }
+);
+
 export const getTodoById = (state: ITodosState, id: string) =>
   state.todos.byId[id];
+
+export const getRandomId = createSelector(
+  getActiveTodoIds,
+  ids => ids[Math.floor(Math.random() * ids.length)]
+);

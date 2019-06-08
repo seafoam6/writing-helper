@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { Box, Grid, Grommet, Heading, Button } from 'grommet';
 import styled from 'styled-components';
-import TodoView from './pages/todoView';
 import TodoEdit from './pages/todoEdit';
 import TodoSingleView from './pages/todoSingleView';
 import TodoList from './pages/todoList';
@@ -11,6 +10,7 @@ import { getTodosAction } from './data/todos/actions';
 import { useDispatch } from 'react-redux';
 import { fetchTodos } from './data/api';
 import { useAsyncEffect } from 'use-async-effect';
+import SideNav from './components/sideNav';
 
 const Wrapper = styled.div`
   display: block;
@@ -53,28 +53,9 @@ const App: React.FC = () => {
           <Box gridArea="header" background="brand" pad="medium">
             <CoolHeading>Writing Helper</CoolHeading>
           </Box>
-          <Box
-            gridArea="nav"
-            background="light-5"
-            direction="column"
-            gap="small"
-            pad="small"
-          >
-            <Heading>Todos</Heading>
-
-            <Link to="/">
-              <Button fill={true} label="Get random todo" />
-            </Link>
-            <Link to="/add/">
-              <Button fill={true} label="Todo add" />
-            </Link>
-            <Link to="/list/">
-              <Button fill={true} label="Todo View All" />
-            </Link>
-          </Box>
+          <SideNav />
           <Box gridArea="main" background="light-2" overflow="scroll">
             <Wrapper>
-              <Route path="/" exact component={TodoView} />
               <Route path="/list/" component={TodoList} />
               <Route path="/edit/:id" component={TodoEdit} />
               <Route path="/todo/:id" component={TodoSingleView} />

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button, Box } from 'grommet';
 import { useSelector } from 'react-redux';
-import { getAllTodos } from '../data/todos/selectors';
+import { getAllActiveTodos } from '../data/todos/selectors';
 
 const TodoList: React.FC = (props, context) => {
   const { allTodos } = useSelector(state => ({
-    allTodos: getAllTodos(state)
+    allTodos: getAllActiveTodos(state)
   }));
 
   return (

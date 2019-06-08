@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Box } from 'grommet';
 import { getTodoById } from '../data/todos/selectors';
 import { useSelector } from 'react-redux';
+import { Redirect, match } from 'react-router';
 
 interface IProps {
   match: any;
@@ -15,15 +16,17 @@ const TodoEdit: React.SFC<IProps> = ({ match }) => {
     todo: getTodoById(state, match.params.id)
   }));
 
-  // const { state, dispatch } = React.useContext(Store);
-  // console.log(state);
-  // console.log(state.ids.filter(i => i.id === 43));
-  // const thing = state.ids.filter(i => i.id === 43).length
-  // ? state.ids.filter(i => i.id === 43)
-  // : [{ id: 33, description: "" }];
+  // make api call to mark a todo done
 
   return (
-    <div>{todo && <Button label={`${todo.id} ${todo.description}`} />}</div>
+    <>
+      {todo && (
+        <>
+          <p>{todo.description}</p>
+          <Button label={todo.active ? 'complete' : 'undo'} />
+        </>
+      )}
+    </>
   );
 };
 
