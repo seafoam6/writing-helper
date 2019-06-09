@@ -30,7 +30,7 @@ export const breakUpTodo = (acc, cur) => {
   return acc;
 };
 
-export const normalizeTodos = (todos: [ITodo]): any => {
+export const normalizeTodos = (todos: ITodo[]) => {
   return todos.reduce(breakUpTodo, {
     ids: [] as number[],
     byId: {},

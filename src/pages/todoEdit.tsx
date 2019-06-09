@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button, Box } from 'grommet';
+import { Button, Box, CheckBox } from 'grommet';
 import { getTodoById } from '../data/todos/selectors';
 import { useSelector } from 'react-redux';
 import { Redirect, match } from 'react-router';
+import { Edit } from 'grommet-icons';
 
 interface IProps {
   match: any;
@@ -21,10 +22,14 @@ const TodoEdit: React.SFC<IProps> = ({ match }) => {
   return (
     <>
       {todo && (
-        <>
-          <p>{todo.description}</p>
-          <Button label={todo.active ? 'complete' : 'undo'} />
-        </>
+        <Box direction="row">
+          <CheckBox
+            checked={todo.active}
+            onChange={event => {}}
+            label={todo.description}
+          />
+          <Button icon={<Edit />} />
+        </Box>
       )}
     </>
   );

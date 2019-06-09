@@ -1,10 +1,12 @@
 import { fetchTodos, fetchCreateTodo, fetchGetTodoById } from '../api';
 import { getResultFromAPICall } from '../../utils/generic';
 
+const TODOS_FETCH_REQUESTED = 'TODOS_FETCH_REQUESTED';
+
 export const getTodosAction = data => {
   console.log(data);
   return {
-    type: 'GET_TODOS',
+    type: 'TODOS_FETCH_REQUESTED',
     payload: data ? data.data : []
   };
 };
@@ -34,6 +36,13 @@ export const updateTodoAction = (
     id,
     description,
     active
+  };
+};
+
+export const ToggleTodoAction = (id: number) => {
+  return {
+    type: 'TOGGLE_TODO',
+    id
   };
 };
 
