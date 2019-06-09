@@ -1,13 +1,33 @@
 import { fetchTodos, fetchCreateTodo, fetchGetTodoById } from '../api';
 import { getResultFromAPICall } from '../../utils/generic';
 
-const TODOS_FETCH_REQUESTED = 'TODOS_FETCH_REQUESTED';
+export const TODOS_FETCH_REQUESTED = 'TODOS_FETCH_REQUESTED';
+export const TODOS_FETCH_SUCCEEDED = 'TODOS_FETCH_SUCCEEDED';
+export const TODOS_FETCH_FAILED = 'TODOS_FETCH_FAILED';
 
-export const getTodosAction = data => {
-  console.log(data);
+export const actionTypes = {
+  TODOS_FETCH_REQUESTED,
+  TODOS_FETCH_SUCCEEDED,
+  TODOS_FETCH_FAILED
+};
+
+const todosFetch = () => {
   return {
-    type: 'TODOS_FETCH_REQUESTED',
-    payload: data ? data.data : []
+    type: TODOS_FETCH_REQUESTED
+  };
+};
+
+const todosSuccess = data => {
+  return {
+    type: TODOS_FETCH_SUCCEEDED,
+    payload: data
+  };
+};
+
+const todosFail = message => {
+  return {
+    type: TODOS_FETCH_FAILED,
+    payload: message
   };
 };
 
@@ -51,4 +71,10 @@ export const deleteTodoAction = (id: number) => {
     type: 'DELETE_TODO',
     id
   };
+};
+
+export const actionCreators = {
+  todosSuccess,
+  todosFetch,
+  todosFail
 };

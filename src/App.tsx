@@ -6,7 +6,7 @@ import TodoSingleView from './pages/todoSingleView';
 import TodoList from './pages/todoList';
 import TodoAdd from './pages/todoAdd';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { getTodosAction } from './data/todos/actions';
+import { actionCreators } from './data/todos/actions';
 import { useDispatch } from 'react-redux';
 import { fetchTodos } from './data/api';
 import { useAsyncEffect } from 'use-async-effect';
@@ -28,10 +28,8 @@ const CoolHeading = styled(Heading)`
 const App: React.FC = () => {
   const dispatch = useDispatch();
 
-  useAsyncEffect(async () => {
-    const todos = await fetchTodos();
-
-    dispatch(getTodosAction(todos));
+  useEffect(() => {
+    dispatch(actionCreators.todosFetch());
   });
 
   return (

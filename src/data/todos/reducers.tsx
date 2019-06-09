@@ -2,7 +2,7 @@ import React from 'react';
 import { IContextProps, ITodosState, ITodo } from '../../utils/interfaces';
 import { normalizeTodos } from '../../utils/generic';
 import produce from 'immer';
-import * as action from './actions';
+import { actionTypes } from './actions';
 
 const initialState: ITodosState = {
   todos: {
@@ -14,10 +14,11 @@ const initialState: ITodosState = {
 };
 
 const todoReducer = (state = initialState, action) => {
-  console.log(action, state);
+  console.log('in reducer', action, state);
+
   return produce(state, draft => {
     switch (action.type) {
-      case action.TODOS_FETCH_REQUESTED:
+      case actionTypes.TODOS_FETCH_SUCCEEDED:
         const norm = normalizeTodos(action.payload);
         console.log({ ...state, todos: { ...norm } });
         return { ...state, todos: { ...norm } };
