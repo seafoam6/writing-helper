@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import mySaga from './data/todos/sagas';
+import sagas from './data/todos/sagas';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -23,7 +23,7 @@ export const store = createStore(
   )
 );
 
-sagaMiddleware.run(mySaga);
+sagaMiddleware.run(sagas);
 
 ReactDOM.render(
   <Provider store={store}>

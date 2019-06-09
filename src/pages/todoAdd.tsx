@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, FormField, Select, TextInput, TextArea, Box } from 'grommet';
-
-import { createTodoAction } from '../data/todos/actions';
+import { useDispatch } from 'react-redux';
+import { actionCreators } from '../data/todos/actions';
 
 import {
   Formik,
@@ -17,47 +17,48 @@ interface MyFormValues {
 }
 
 const TodoAdd: React.SFC<{}> = () => {
-  return (
-    <div>
-      <Formik
-        initialValues={{ description: '' }}
-        onSubmit={async (
-          values: MyFormValues,
-          actions: FormikActions<MyFormValues>
-        ) => {
-          console.log({ values, actions });
+  const dispatch = useDispatch();
 
-          const thing = await createTodoAction(values.description);
-          //  dispatch(thing);
+  return (
+    <Formik
+      initialValues={{ description: '' }}
+      onSubmit={async (
+        values: MyFormValues,
+        actions: FormikActions<MyFormValues>
+      ) => {
+        console.log({ values, actions });
+        if (values.description !== undefined) {
+          dispatch(actionCreators.todoCreate(values.description));
+          values.description = '';
           actions.setSubmitting(false);
-        }}
-        render={(formikBag: FormikProps<MyFormValues>) => (
-          <Form>
-            <Field
-              name="description"
-              render={({ field, form }: FieldProps<MyFormValues>) => (
-                <div>
-                  {/* todo: add error as a prop to form field
+        }
+      }}
+      render={(formikBag: FormikProps<MyFormValues>) => (
+        <Form>
+          <Field
+            name="description"
+            render={({ field, form }: FieldProps<MyFormValues>) => (
+              <div>
+                {/* todo: add error as a prop to form field
                   error={errors.description}
                    */}
-                  <FormField>
-                    <TextInput
-                      type="text"
-                      {...field}
-                      placeholder="Thing to complete"
-                    />
-                    {form.touched.description &&
-                      form.errors.description &&
-                      form.errors.description}
-                  </FormField>
-                </div>
-              )}
-            />
-            <Button type="submit" primary label="Add" />
-          </Form>
-        )}
-      />
-    </div>
+                <FormField>
+                  <TextInput
+                    type="text"
+                    {...field}
+                    placeholder="Thing to complete"
+                  />
+                  {form.touched.description &&
+                    form.errors.description &&
+                    form.errors.description}
+                </FormField>
+              </div>
+            )}
+          />
+          <Button type="submit" primary label="Add" />
+        </Form>
+      )}
+    />
   );
 };
 

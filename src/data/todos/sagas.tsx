@@ -1,19 +1,32 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, put, takeEvery, takeLatest, all } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import * as API from '../api';
 import { actionTypes, actionCreators } from './actions';
 
-// worker Saga: will be fired on USER_FETCH_REQUESTED actions
-function* fetchTodosSaga(action) {
+function* fetchTodos(): SagaIterator {
   try {
-    const todos = yield call(API.fetchTodos);
-    yield put(actionCreators.todosSuccess(todos.data));
+    const response = yield call(API.fetchTodos);
+    yield put(actionCreators.todosSuccess(response.data));
   } catch (e) {
     yield put(actionCreators.todosFail(e.message));
   }
 }
 
-function* mySaga() {
-  yield takeLatest(actionTypes.TODOS_FETCH_REQUESTED, fetchTodosSaga);
+function* createTodo(action): SagaIterator {
+  try {
+    const response = yield call(API.createTodo, action.description);
+    console.log(actionCreators.todoCreateSuccess(response.data.rows[0]));
+    yield put(actionCreators.todoCreateSuccess(response.data.rows[0]));
+  } catch (e) {
+    yield put(actionCreators.todoCreateFail(e.message));
+  }
 }
 
-export default mySaga;
+function* sagas() {
+  yield all([
+    takeLatest(actionTypes.TODOS_FETCH_REQUESTED, fetchTodos),
+    takeLatest(actionTypes.TODOS_CREATE_REQUESTED, createTodo)
+  ]);
+}
+
+export default sagas;

@@ -1,14 +1,29 @@
-import { fetchTodos, fetchCreateTodo, fetchGetTodoById } from '../api';
-import { getResultFromAPICall } from '../../utils/generic';
+import * as INTERFACE from '../../utils/interfaces';
 
 export const TODOS_FETCH_REQUESTED = 'TODOS_FETCH_REQUESTED';
 export const TODOS_FETCH_SUCCEEDED = 'TODOS_FETCH_SUCCEEDED';
 export const TODOS_FETCH_FAILED = 'TODOS_FETCH_FAILED';
 
+export const TODOS_CREATE_REQUESTED = 'TODOS_CREATE_REQUESTED';
+export const TODOS_CREATE_SUCCEEDED = 'TODOS_CREATE_SUCCEEDED';
+export const TODOS_CREATE_FAILED = 'TODOS_CREATE_FAILED';
+
+export const TODOS_UPDATE_REQUESTED = 'TODOS_UPDATE_REQUESTED';
+export const TODOS_UPDATE_SUCCEEDED = 'TODOS_UPDATE_SUCCEEDED';
+export const TODOS_UPDATE_FAILED = 'TODOS_UPDATE_FAILED';
+
 export const actionTypes = {
   TODOS_FETCH_REQUESTED,
   TODOS_FETCH_SUCCEEDED,
-  TODOS_FETCH_FAILED
+  TODOS_FETCH_FAILED,
+
+  TODOS_CREATE_REQUESTED,
+  TODOS_CREATE_SUCCEEDED,
+  TODOS_CREATE_FAILED,
+
+  TODOS_UPDATE_REQUESTED,
+  TODOS_UPDATE_SUCCEEDED,
+  TODOS_UPDATE_FAILED
 };
 
 const todosFetch = () => {
@@ -16,65 +31,68 @@ const todosFetch = () => {
     type: TODOS_FETCH_REQUESTED
   };
 };
-
 const todosSuccess = data => {
   return {
     type: TODOS_FETCH_SUCCEEDED,
     payload: data
   };
 };
-
-const todosFail = message => {
+const todosFail = (message: string) => {
   return {
     type: TODOS_FETCH_FAILED,
     payload: message
   };
 };
 
-export const createTodoAction = async (description: string) => {
-  const response = await fetchCreateTodo(description);
-  if (response) {
-    const payload = getResultFromAPICall(response);
-    return {
-      payload,
-      type: 'CREATE_TODO'
-    };
-  } else {
-    throw new Error('create todo action failed');
-  }
-};
-
-// TODO: break this into two seperate actions
-// update queries
-export const updateTodoAction = (
-  id: number,
-  description: string,
-  active: boolean
-) => {
+export const todoCreate = (description: string) => {
   return {
-    type: 'UPDATE_TODO',
-    id,
     description,
-    active
+    type: TODOS_CREATE_REQUESTED
+  };
+};
+export const todoCreateSuccess = data => {
+  return {
+    type: TODOS_CREATE_SUCCEEDED,
+    payload: data
+  };
+};
+export const todoCreateFail = (message: string) => {
+  return {
+    type: TODOS_CREATE_FAILED,
+    payload: message
   };
 };
 
-export const ToggleTodoAction = (id: number) => {
+export const todoUpdate = (todo: INTERFACE.ITodo) => {
   return {
-    type: 'TOGGLE_TODO',
-    id
+    description: todo.description,
+    active: todo.active,
+    type: TODOS_CREATE_REQUESTED
   };
 };
-
-export const deleteTodoAction = (id: number) => {
+export const todoUpdateSuccess = data => {
   return {
-    type: 'DELETE_TODO',
-    id
+    type: TODOS_CREATE_SUCCEEDED,
+    payload: data
+  };
+};
+export const todoUpdateFail = (message: string) => {
+  return {
+    type: TODOS_CREATE_FAILED,
+    payload: message
   };
 };
 
 export const actionCreators = {
   todosSuccess,
   todosFetch,
-  todosFail
+  todosFail,
+
+  todoCreate,
+  todoCreateSuccess,
+  todoCreateFail,
+
+  todoUpdate,
+  todoUpdateSuccess,
+  todoUpdateFail
 };
