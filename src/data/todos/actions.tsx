@@ -65,20 +65,19 @@ export const todoCreateFail = (message: string) => {
 
 export const todoUpdate = (todo: INTERFACE.ITodo) => {
   return {
-    description: todo.description,
-    active: todo.active,
-    type: TODOS_CREATE_REQUESTED
+    type: TODOS_UPDATE_REQUESTED,
+    payload: todo
   };
 };
 export const todoUpdateSuccess = data => {
   return {
-    type: TODOS_CREATE_SUCCEEDED,
+    type: TODOS_UPDATE_SUCCEEDED,
     payload: data
   };
 };
 export const todoUpdateFail = (message: string) => {
   return {
-    type: TODOS_CREATE_FAILED,
+    type: TODOS_UPDATE_FAILED,
     payload: message
   };
 };

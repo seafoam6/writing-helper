@@ -48,15 +48,18 @@ const createTodo = (request, response) => {
 const updateTodo = (request, response) => {
   const id = parseInt(request.params.id);
   const { description, active } = request.body;
+  console.log(description, active, id)
 
   pool.query(
-    "UPDATE todos SET description = $1, active = $2 WHERE id = $3",
+    "UPDATE todos SET description = $1, active = $2 WHERE id = $3 RETURNING description, created_on, id, active",
     [description, active, id],
     (error, results) => {
       if (error) {
+        console.log('eeeexxx', error)
         throw error;
       }
-      response.status(200).send(`Todo modified with ID: ${id}`);
+      console.log('RESULTSSSSSS', results)
+      response.status(200).send(results);
     }
   );
 };

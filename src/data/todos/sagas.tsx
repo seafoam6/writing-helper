@@ -22,10 +22,22 @@ function* createTodo(action): SagaIterator {
   }
 }
 
+function* updateTodo(action): SagaIterator {
+  try {
+    const response = yield call(API.updateTodo, action.payload);
+    // console.log(actionCreators.todoUpdateSuccess(response.data.rows[0]));
+    console.log('response in saga', response);
+    yield put(actionCreators.todoUpdateSuccess(response.data.rows[0]));
+  } catch (e) {
+    yield put(actionCreators.todoUpdateFail(e.message));
+  }
+}
+
 function* sagas() {
   yield all([
     takeLatest(actionTypes.TODOS_FETCH_REQUESTED, fetchTodos),
-    takeLatest(actionTypes.TODOS_CREATE_REQUESTED, createTodo)
+    takeLatest(actionTypes.TODOS_CREATE_REQUESTED, createTodo),
+    takeLatest(actionTypes.TODOS_UPDATE_REQUESTED, updateTodo)
   ]);
 }
 

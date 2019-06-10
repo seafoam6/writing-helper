@@ -29,3 +29,17 @@ export const createTodo = (description: string) => {
       console.log(error);
     });
 };
+
+export const updateTodo = (todo: INTERFACE.ITodo) => {
+  console.log('in update API call FE', todo);
+  return axios
+    .put(`${todosUrl}/${todo.id}`, todo)
+    .then((response: void | AxiosResponse<INTERFACE.CreateTodoResponse>) => {
+      console.log('update response', response);
+      return response;
+    })
+    .catch(error => {
+      // handle error
+      console.log(error);
+    });
+};

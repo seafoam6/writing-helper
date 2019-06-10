@@ -15,16 +15,27 @@ const initialState: ITodosState = {
 
 const todoReducer = (state = initialState, action) => {
   return produce(state, draft => {
+    const { todos } = draft;
+
     switch (action.type) {
       case actionTypes.TODOS_FETCH_SUCCEEDED:
         const norm = normalizeTodos(action.payload);
         return { ...state, todos: { ...norm } };
-      case actionTypes.TODOS_CREATE_SUCCEEDED:
+      case actionTypes.TODOS_CREATE_SUCCEEDED: {
         const { active, id } = action.payload;
-        draft.todos.ids.push(id);
-        draft.todos.byId[id] = action.payload;
-        active ? draft.todos.active.push(id) : draft.todos.inactive.push(id);
+        todos.ids.push(id);
+        todos.byId[id] = action.payload;
+        active ? todos.active.push(id) : todos.inactive.push(id);
         return draft;
+      }
+      case actionTypes.TODOS_UPDATE_SUCCEEDED: {
+        const { active, id } = action.payload;
+        todos.byId[id] = action.payload;
+        todos.active = todos.active.filter(i => i !== id);
+        todos.inactive = todos.inactive.filter(i => i !== id);
+
+        active ? draft.todos.active.push(id) : draft.todos.inactive.push(id);
+      }
     }
   });
 };
