@@ -14,7 +14,7 @@ const TodoList: React.FC = (props, context) => {
         return (
           <Button
             margin="xsmall"
-            label={`${todo.description} ${todo.id} `}
+            label={`${todo.description}`}
             key={idx}
             href={`/edit/${todo.id}`}
           />

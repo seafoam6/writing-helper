@@ -33,12 +33,15 @@ const TodoEdit: React.SFC<IProps> = ({ match }) => {
   return (
     <>
       {todo && (
-        <Box direction="row">
-          {todo && todo.active ? (
-            <Button label="Not Completed" onClick={handleActiveChange} />
-          ) : (
-            <Button label="Completed" onClick={handleActiveChange} />
-          )}
+        <Box>
+          <h1>{todo.description}</h1>
+          <Box direction="row">
+            {todo.active ? (
+              <Button label="Not Completed" onClick={handleActiveChange} />
+            ) : (
+              <Button label="Completed" onClick={handleActiveChange} />
+            )}
+          </Box>
           {/* <CheckBox
             checked={!todo.active}
             onChange={event => console.log({...todo, active: !todo.active})
