@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { Button, Box, CheckBox } from 'grommet';
+import { Button, FormField, Select, TextInput, TextArea, Box } from 'grommet';
 import { getTodoById } from '../data/todos/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, match } from 'react-router';
 import { Edit } from 'grommet-icons';
 import { actionCreators } from '../data/todos/actions';
-import { Formik } from 'formik';
+import {
+  Formik,
+  FormikActions,
+  FormikProps,
+  Form,
+  Field,
+  FieldProps
+} from 'formik';
 
 interface IProps {
   match: any;
@@ -59,8 +66,8 @@ const TodoEdit: React.SFC<IProps> = ({ match }) => {
                 handleSubmit,
                 isSubmitting
               }) => (
-                <form onSubmit={handleSubmit}>
-                  <input
+                <Form>
+                  <TextInput
                     type="text"
                     name="description"
                     onChange={handleChange}
@@ -68,10 +75,18 @@ const TodoEdit: React.SFC<IProps> = ({ match }) => {
                     value={values.description}
                   />
 
-                  <button type="submit" disabled={isSubmitting}>
-                    Submit
-                  </button>
-                </form>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    label="Submit"
+                  />
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    label="Cancel"
+                    onClick={handleModeChange}
+                  />
+                </Form>
               )}
             />
           ) : (

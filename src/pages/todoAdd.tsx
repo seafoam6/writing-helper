@@ -27,7 +27,7 @@ const TodoAdd: React.SFC<{}> = () => {
         actions: FormikActions<MyFormValues>
       ) => {
         console.log({ values, actions });
-        if (values.description !== undefined) {
+        if (values.description !== '') {
           dispatch(actionCreators.todoCreate(values.description));
           values.description = '';
           actions.setSubmitting(false);
