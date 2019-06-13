@@ -38,7 +38,7 @@ function* deleteTodo(action): SagaIterator {
     const response = yield call(API.deleteTodo, action.payload);
     // console.log(actionCreators.todoUpdateSuccess(response.data.rows[0]));
     console.log('response in saga', response);
-    yield put(actionCreators.todoDeleteSuccess(response));
+    yield put(actionCreators.todoDeleteSuccess(response.data));
   } catch (e) {
     yield put(actionCreators.todoDeleteFail(e.message));
   }

@@ -39,7 +39,7 @@ const todoReducer = (state = initialState, action) => {
       }
       case actionTypes.TODOS_DELETE_SUCCEEDED: {
         const id = action.payload;
-
+        console.log(id);
         delete todos.byId[id];
         todos.ids = todos.ids.filter(i => i !== id);
         todos.active = todos.active.filter(i => i !== id);
