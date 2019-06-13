@@ -3,7 +3,7 @@ import { Button, FormField, Select, TextInput, TextArea, Box } from 'grommet';
 import styled from 'styled-components';
 import { getTodoById } from '../data/todos/selectors';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect, match } from 'react-router';
+import { Redirect, match, Router } from 'react-router';
 import { Edit } from 'grommet-icons';
 import { actionCreators } from '../data/todos/actions';
 import {
@@ -25,6 +25,8 @@ interface IProps {
 
 const TodoEdit: React.SFC<IProps> = ({ match }) => {
   const [isEditMode, updateEditMode] = useState(false);
+  const [isRedirect, setRedirect] = useState(false);
+
   const dispatch = useDispatch();
   const { todo } = useSelector(state => ({
     todo: getTodoById(state, match.params.id)
@@ -45,13 +47,14 @@ const TodoEdit: React.SFC<IProps> = ({ match }) => {
 
   const handleDelete = () => {
     dispatch(actionCreators.todoDelete(todo));
-    return <Redirect to="/" />;
+    setRedirect(true);
   };
 
   // make api call to mark a todo done
 
   return (
     <>
+      {isRedirect && <Redirect to="/list" />}
       {todo && (
         <Box direction="row">
           {isEditMode ? (
