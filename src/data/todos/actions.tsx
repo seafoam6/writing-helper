@@ -12,6 +12,10 @@ export const TODOS_UPDATE_REQUESTED = 'TODOS_UPDATE_REQUESTED';
 export const TODOS_UPDATE_SUCCEEDED = 'TODOS_UPDATE_SUCCEEDED';
 export const TODOS_UPDATE_FAILED = 'TODOS_UPDATE_FAILED';
 
+export const TODOS_DELETE_REQUESTED = 'TODOS_DELETE_REQUESTED';
+export const TODOS_DELETE_SUCCEEDED = 'TODOS_DELETE_SUCCEEDED';
+export const TODOS_DELETE_FAILED = 'TODOS_DELETE_FAILED';
+
 export const actionTypes = {
   TODOS_FETCH_REQUESTED,
   TODOS_FETCH_SUCCEEDED,
@@ -23,7 +27,11 @@ export const actionTypes = {
 
   TODOS_UPDATE_REQUESTED,
   TODOS_UPDATE_SUCCEEDED,
-  TODOS_UPDATE_FAILED
+  TODOS_UPDATE_FAILED,
+
+  TODOS_DELETE_REQUESTED,
+  TODOS_DELETE_SUCCEEDED,
+  TODOS_DELETE_FAILED
 };
 
 const todosFetch = () => {
@@ -82,6 +90,25 @@ export const todoUpdateFail = (message: string) => {
   };
 };
 
+export const todoDelete = (todo: INTERFACE.ITodo) => {
+  return {
+    type: TODOS_DELETE_REQUESTED,
+    payload: todo
+  };
+};
+export const todoDeleteSuccess = data => {
+  return {
+    type: TODOS_DELETE_SUCCEEDED,
+    payload: data
+  };
+};
+export const todoDeleteFail = (message: string) => {
+  return {
+    type: TODOS_DELETE_FAILED,
+    payload: message
+  };
+};
+
 export const actionCreators = {
   todosSuccess,
   todosFetch,
@@ -93,5 +120,9 @@ export const actionCreators = {
 
   todoUpdate,
   todoUpdateSuccess,
-  todoUpdateFail
+  todoUpdateFail,
+
+  todoDelete,
+  todoDeleteSuccess,
+  todoDeleteFail
 };

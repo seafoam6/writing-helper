@@ -72,7 +72,7 @@ const deleteTodo = (request, response) => {
     if (error) {
       throw error;
     }
-    response.status(200).send(`Todo deleted with ID: ${id}`);
+    response.status(200).send(`${id}`);
   });
 };
 

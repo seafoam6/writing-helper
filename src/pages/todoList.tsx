@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Box } from 'grommet';
 import { useSelector } from 'react-redux';
 import { getAllActiveTodos } from '../data/todos/selectors';
+import { shuffle } from 'lodash';
 
 const TodoList: React.FC = (props, context) => {
   const { allTodos } = useSelector(state => ({
@@ -10,7 +11,7 @@ const TodoList: React.FC = (props, context) => {
 
   return (
     <Box direction="row" gap="small" pad="small" wrap={true}>
-      {allTodos.map((todo, idx) => {
+      {shuffle(allTodos).map((todo, idx) => {
         return (
           <Button
             margin="xsmall"

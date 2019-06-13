@@ -22,6 +22,7 @@ export interface DatabaseResponseRow {
   active: boolean;
 }
 
+//Todo: change this to a better name
 export interface CreateTodoResponse {
   data: {
     rows: DatabaseResponseRow[];

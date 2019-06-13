@@ -43,3 +43,18 @@ export const updateTodo = (todo: INTERFACE.ITodo) => {
       console.log(error);
     });
 };
+
+export const deleteTodo = (todo: INTERFACE.ITodo) => {
+  console.log('in delete API call FE', todo);
+
+  return axios
+    .delete(`${todosUrl}/${todo.id}`)
+    .then((response: void | AxiosResponse<INTERFACE.CreateTodoResponse>) => {
+      console.log('delete response', response);
+      return response;
+    })
+    .catch(error => {
+      // handle error
+      console.log(error);
+    });
+};

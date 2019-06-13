@@ -28,6 +28,8 @@ const TodoAdd: React.SFC<{}> = () => {
       ) => {
         console.log({ values, actions });
         if (values.description !== '') {
+          // TODO: throw error here for feedback.
+          // TODO: Check if it matches another desc and throw error if true
           dispatch(actionCreators.todoCreate(values.description));
           values.description = '';
           actions.setSubmitting(false);

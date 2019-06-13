@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, FormField, Select, TextInput, TextArea, Box } from 'grommet';
+import styled from 'styled-components';
 import { getTodoById } from '../data/todos/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, match } from 'react-router';
@@ -13,6 +14,7 @@ import {
   Field,
   FieldProps
 } from 'formik';
+import TodoEditForm from '../components/todoEditForm';
 
 interface IProps {
   match: any;
@@ -41,69 +43,38 @@ const TodoEdit: React.SFC<IProps> = ({ match }) => {
     updateEditMode(!isEditMode);
   };
 
+  const handleDelete = () => {
+    dispatch(actionCreators.todoDelete(todo));
+    return <Redirect to="/" />;
+  };
+
   // make api call to mark a todo done
 
   return (
     <>
       {todo && (
-        <Box>
+        <Box direction="row">
           {isEditMode ? (
-            <Formik
-              initialValues={{
-                description: todo.description
-              }}
-              onSubmit={(values, actions) => {
-                // todo: action here
-                console.log(values, actions);
-              }}
-              render={({
-                values,
-                errors,
-                status,
-                touched,
-                handleBlur,
-                handleChange,
-                handleSubmit,
-                isSubmitting
-              }) => (
-                <Form>
-                  <TextInput
-                    type="text"
-                    name="description"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.description}
-                  />
-
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    label="Submit"
-                  />
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    label="Cancel"
-                    onClick={handleModeChange}
-                  />
-                </Form>
-              )}
+            <TodoEditForm
+              todo={todo}
+              dispatch={dispatch}
+              handleModeChange={handleModeChange}
+              actionCreators={actionCreators}
+              handleDelete={handleDelete}
             />
           ) : (
-            <>
+            <Box justify-content="space-around" direction="row">
               <h1>{todo.description}</h1>
-              <Box>
-                <Button onClick={handleModeChange} icon={<Edit />} />
-              </Box>
-            </>
+
+              {todo.active ? (
+                <Button label="Not Completed" onClick={handleActiveChange} />
+              ) : (
+                <Button label="Completed" onClick={handleActiveChange} />
+              )}
+
+              <Button onClick={handleModeChange} icon={<Edit />} />
+            </Box>
           )}
-          <Box direction="row">
-            {todo.active ? (
-              <Button label="Not Completed" onClick={handleActiveChange} />
-            ) : (
-              <Button label="Completed" onClick={handleActiveChange} />
-            )}
-          </Box>
         </Box>
       )}
     </>

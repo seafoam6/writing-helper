@@ -33,11 +33,23 @@ function* updateTodo(action): SagaIterator {
   }
 }
 
+function* deleteTodo(action): SagaIterator {
+  try {
+    const response = yield call(API.deleteTodo, action.payload);
+    // console.log(actionCreators.todoUpdateSuccess(response.data.rows[0]));
+    console.log('response in saga', response);
+    yield put(actionCreators.todoDeleteSuccess(response));
+  } catch (e) {
+    yield put(actionCreators.todoDeleteFail(e.message));
+  }
+}
+
 function* sagas() {
   yield all([
     takeLatest(actionTypes.TODOS_FETCH_REQUESTED, fetchTodos),
     takeLatest(actionTypes.TODOS_CREATE_REQUESTED, createTodo),
-    takeLatest(actionTypes.TODOS_UPDATE_REQUESTED, updateTodo)
+    takeLatest(actionTypes.TODOS_UPDATE_REQUESTED, updateTodo),
+    takeLatest(actionTypes.TODOS_DELETE_REQUESTED, deleteTodo)
   ]);
 }
 
