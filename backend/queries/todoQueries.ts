@@ -6,15 +6,26 @@ const pool = new Pool({
   password: process.env.PGPASSWORD,
   port: process.env.PGPORT
 });
+const db2 = require('../pgAdapter')
+
+// const getTodos = (request, response) => {
+//   pool.query("SELECT * FROM todos ORDER BY id ASC", (error, results) => {
+//     if (error) {
+//       throw error;
+//     }
+//     response.status(200).json(results.rows);
+//   });
+// };
 
 const getTodos = (request, response) => {
-  pool.query("SELECT * FROM todos ORDER BY id ASC", (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.status(200).json(results.rows);
-  });
+  db2.many("SELECT * FROM todos ORDER BY id ASC").then(data => {
+    response.status(200).json(data);
+})
+.catch(error => {
+    console.log('ERROR:', error); // print the error;
+})
 };
+
 
 const getTodoById = (request, response) => {
   const id = parseInt(request.params.id);
@@ -55,10 +66,8 @@ const updateTodo = (request, response) => {
     [description, active, id],
     (error, results) => {
       if (error) {
-        console.log('eeeexxx', error)
         throw error;
       }
-      console.log('RESULTSSSSSS', results)
       response.status(200).send(results);
     }
   );

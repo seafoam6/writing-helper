@@ -3,6 +3,7 @@ const express = require("express");
 require("dotenv").config();
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const db2 = require('./pgAdapter');
 
 const app = express();
 const port = 3000;
@@ -21,6 +22,7 @@ app.use(
 // make front end calls
 
 app.get("/todos", cors(), db.getTodos);
+
 app.get("/todos/:id", cors(), db.getTodoById);
 app.post("/todos", cors(), db.createTodo);
 app.put("/todos/:id", cors(), db.updateTodo);

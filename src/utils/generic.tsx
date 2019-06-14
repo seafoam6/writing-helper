@@ -31,6 +31,7 @@ export const breakUpTodo = (acc, cur) => {
 };
 
 export const normalizeTodos = (todos: ITodo[]) => {
+  console.log('norm', todos);
   return todos.reduce(breakUpTodo, {
     ids: [] as number[],
     byId: {},

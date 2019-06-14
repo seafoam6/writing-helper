@@ -6,11 +6,17 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useAsyncEffect } from 'use-async-effect';
 import { getRandomId } from '../data/todos/selectors';
+import { actionCreators } from '../data/todos/actions';
 
 const SideNav = () => {
+  const dispatch = useDispatch();
   const { id } = useSelector(state => ({
     id: getRandomId(state)
   }));
+
+  const handleClick = () => {
+    dispatch(actionCreators.todosFetch());
+  };
 
   return (
     <Box
@@ -31,6 +37,9 @@ const SideNav = () => {
       <Link to="/list/">
         <Button fill={true} label="Todo View All" />
       </Link>
+      <span>
+        <Button fill={true} label="TEST" onClick={handleClick} />
+      </span>
     </Box>
   );
 };
