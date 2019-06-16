@@ -1,7 +1,8 @@
 import * as _i from '../../src/utils/interfaces'
-const db = require('../pgAdapter')
+const {db} = require('../pgAdaptor')
 
 const getTodos = (request, response) => {
+
   db.many("SELECT * FROM todos ORDER BY id ASC").then((data: _i.DatabaseResponseRow[]) => {
     response.status(200).json(data);
 })

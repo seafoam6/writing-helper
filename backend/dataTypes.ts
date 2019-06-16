@@ -1,28 +1,27 @@
-const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString } = graphql;
+var { buildSchema } = require('graphql');
+const {
+  GraphQLObjectType,
+  GraphQLSchema,
+  GraphQLNonNull,
+  GraphQLInt,
+  GraphQLString,
+  GraphQLBoolean,
+
+  type
+} = require('graphql/type');
+export {}
 
 const TodoType = new GraphQLObjectType({
-    name: "Todo",
-    type: "Query",
-    fields: {
-      description: { type: GraphQLString },
-      created_on: { type: GraphQLString },
-      id: { type: GraphQLString },
-      active: { type: GraphQLString },
-    }
-  });
-  
-//   const ProjectType = new GraphQLObjectType({
-//     name: "Project",
-//     type: "Query",
-//     fields: {
-//       id: { type: GraphQLString },
-//       creator_id: { type: GraphQLString },
-//       created: { type: GraphQLString },
-//       title: { type: GraphQLString },
-//       description: { type: GraphQLString }
-//     }
-//   });
-  
-  exports.UserType = TodoType;
-//   exports.ProjectType = ProjectType;
+  name: "Todo",
+  type: "Query",
+  fields: {
+    id: { type: GraphQLInt },
+    description: { type: GraphQLString },
+    createdOn: { type: GraphQLString },
+    active: { type: GraphQLBoolean },
+
+  }
+});
+
+
+  module.exports = {TodoType}

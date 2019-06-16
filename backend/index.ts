@@ -1,9 +1,14 @@
-const db = require("./queries/todoQueries");
+ const rest = require("./queries/todoQueries");
 const express = require("express");
 require("dotenv").config();
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const db2 = require('./pgAdapter');
+const db = require('./pgAdaptor');
+const expressGraphQl = require("express-graphql");
+const graphql = require("graphql");
+const { GraphQLSchema } = graphql;
+const { query } = require("./queries");
+const { mutation } = require("./mutations");
 
 const app = express();
 const port = 3000;
@@ -17,15 +22,28 @@ app.use(
   })
 );
 
-// test in postman
-// Do data modeling
-// make front end calls
+const schema = new GraphQLSchema({
+  query,
+  mutation
+});
 
-app.get("/todos", cors(), db.getTodos);
-app.post("/todos", cors(), db.createTodo);
-app.put("/todos/:id", cors(), db.updateTodo);
-app.delete("/todos/:id", cors(), db.deleteTodo);
+
+
+app.use(
+  '/gql',
+  expressGraphQl({
+    schema: schema,
+    graphiql: true
+  })
+);
+
+app.get("/todos", cors(), rest.getTodos);
+app.post("/todos", cors(), rest.createTodo);
+app.put("/todos/:id", cors(), rest.updateTodo);
+app.delete("/todos/:id", cors(), rest.deleteTodo);
 
 app.listen(port, () =>
   console.log(`Writing Helpers listening on port ${port}!`)
 );
+
+export {};

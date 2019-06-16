@@ -9,6 +9,6 @@ const config = {
     port: process.env.PGPORT
 };
 
-const db = pgp(config);
 
-export default db;
+
+exports.db = pgp(config);
