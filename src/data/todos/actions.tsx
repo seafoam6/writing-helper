@@ -1,4 +1,4 @@
-import * as INTERFACE from '../../utils/interfaces';
+import * as _i from '../../utils/interfaces';
 
 export const TODOS_FETCH_REQUESTED = 'TODOS_FETCH_REQUESTED';
 export const TODOS_FETCH_SUCCEEDED = 'TODOS_FETCH_SUCCEEDED';
@@ -58,7 +58,7 @@ export const todoCreate = (description: string) => {
     type: TODOS_CREATE_REQUESTED
   };
 };
-export const todoCreateSuccess = data => {
+export const todoCreateSuccess = (data: _i.DatabaseResponseRow) => {
   return {
     type: TODOS_CREATE_SUCCEEDED,
     payload: data
@@ -71,7 +71,7 @@ export const todoCreateFail = (message: string) => {
   };
 };
 
-export const todoUpdate = (todo: INTERFACE.ITodo) => {
+export const todoUpdate = (todo: _i.ITodo) => {
   return {
     type: TODOS_UPDATE_REQUESTED,
     payload: todo
@@ -90,7 +90,7 @@ export const todoUpdateFail = (message: string) => {
   };
 };
 
-export const todoDelete = (todo: INTERFACE.ITodo) => {
+export const todoDelete = (todo: _i.ITodo) => {
   return {
     type: TODOS_DELETE_REQUESTED,
     payload: todo

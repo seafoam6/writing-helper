@@ -14,7 +14,6 @@ const initialState: ITodosState = {
 };
 
 const todoReducer = (state = initialState, action) => {
-  console.log(action);
   return produce(state, draft => {
     const { todos } = draft;
 
@@ -38,12 +37,11 @@ const todoReducer = (state = initialState, action) => {
         active ? draft.todos.active.push(id) : draft.todos.inactive.push(id);
       }
       case actionTypes.TODOS_DELETE_SUCCEEDED: {
-        const id = action.payload;
-        console.log(id);
-        delete todos.byId[id];
-        todos.ids = todos.ids.filter(i => i !== id);
-        todos.active = todos.active.filter(i => i !== id);
-        todos.inactive = todos.inactive.filter(i => i !== id);
+        const response = action.payload;
+        delete todos.byId[response.id];
+        todos.ids = todos.ids.filter(i => i !== response.id);
+        todos.active = todos.active.filter(i => i !== response.id);
+        todos.inactive = todos.inactive.filter(i => i !== response.id);
       }
     }
   });

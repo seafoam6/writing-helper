@@ -22,8 +22,6 @@ app.use(
 // make front end calls
 
 app.get("/todos", cors(), db.getTodos);
-
-app.get("/todos/:id", cors(), db.getTodoById);
 app.post("/todos", cors(), db.createTodo);
 app.put("/todos/:id", cors(), db.updateTodo);
 app.delete("/todos/:id", cors(), db.deleteTodo);

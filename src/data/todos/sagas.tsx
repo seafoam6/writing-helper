@@ -15,8 +15,7 @@ function* fetchTodos(): SagaIterator {
 function* createTodo(action): SagaIterator {
   try {
     const response = yield call(API.createTodo, action.description);
-    console.log(actionCreators.todoCreateSuccess(response.data.rows[0]));
-    yield put(actionCreators.todoCreateSuccess(response.data.rows[0]));
+    yield put(actionCreators.todoCreateSuccess(response.data));
   } catch (e) {
     yield put(actionCreators.todoCreateFail(e.message));
   }
@@ -25,9 +24,7 @@ function* createTodo(action): SagaIterator {
 function* updateTodo(action): SagaIterator {
   try {
     const response = yield call(API.updateTodo, action.payload);
-    // console.log(actionCreators.todoUpdateSuccess(response.data.rows[0]));
-    console.log('response in saga', response);
-    yield put(actionCreators.todoUpdateSuccess(response.data.rows[0]));
+    yield put(actionCreators.todoUpdateSuccess(response.data));
   } catch (e) {
     yield put(actionCreators.todoUpdateFail(e.message));
   }
@@ -36,8 +33,6 @@ function* updateTodo(action): SagaIterator {
 function* deleteTodo(action): SagaIterator {
   try {
     const response = yield call(API.deleteTodo, action.payload);
-    // console.log(actionCreators.todoUpdateSuccess(response.data.rows[0]));
-    console.log('response in saga', response);
     yield put(actionCreators.todoDeleteSuccess(response.data));
   } catch (e) {
     yield put(actionCreators.todoDeleteFail(e.message));

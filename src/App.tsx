@@ -1,15 +1,13 @@
-import React, { useCallback, useEffect } from 'react';
-import { Box, Grid, Grommet, Heading, Button } from 'grommet';
+import React, { useEffect } from 'react';
+import { Box, Grid, Grommet, Heading } from 'grommet';
 import styled from 'styled-components';
 import TodoEdit from './pages/todoEdit';
 import TodoSingleView from './pages/todoSingleView';
 import TodoList from './pages/todoList';
 import TodoAdd from './pages/todoAdd';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { actionCreators } from './data/todos/actions';
 import { useDispatch } from 'react-redux';
-import { fetchTodos } from './data/api';
-import { useAsyncEffect } from 'use-async-effect';
 import SideNav from './components/sideNav';
 
 const Wrapper = styled.div`

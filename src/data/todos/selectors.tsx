@@ -30,3 +30,8 @@ export const getRandomId = createSelector(
   getActiveTodoIds,
   ids => ids[Math.floor(Math.random() * ids.length)]
 );
+
+export const getTestId = createSelector(
+  getAllActiveTodos,
+  todos => todos.filter(todo => todo.description === 'Dumb thing')[0]
+);

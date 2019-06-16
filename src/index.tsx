@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reducer from './data/todos/reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import logger from 'redux-logger';
 
 const composeEnhancers = composeWithDevTools({
   // Specify name here, actionsBlacklist, actionsCreators and other options if needed
@@ -17,10 +18,7 @@ const composeEnhancers = composeWithDevTools({
 const sagaMiddleware = createSagaMiddleware();
 export const store = createStore(
   reducer,
-  composeEnhancers(
-    applyMiddleware(sagaMiddleware)
-    // other store enhancers if any
-  )
+  composeEnhancers(applyMiddleware(sagaMiddleware, logger))
 );
 
 sagaMiddleware.run(sagas);
