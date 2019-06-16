@@ -11,4 +11,4 @@ const config = {
 
 const db = pgp(config);
 
-module.exports = db;
+export default db;
