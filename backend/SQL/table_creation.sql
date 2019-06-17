@@ -1,7 +1,3 @@
-
-
-# id, descritpion, created_on, active
-
 CREATE TABLE todos(
    id SERIAL PRIMARY KEY,
    description TEXT UNIQUE NOT NULL,

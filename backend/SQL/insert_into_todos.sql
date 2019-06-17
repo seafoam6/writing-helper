@@ -1,1 +1,1 @@
-INSERT into todos(description, created_on) VALUES('work on character outline', now());
+INSERT INTO public.todos ( description, created_on, active) VALUES ( 'sampleTodo', now(), true);
