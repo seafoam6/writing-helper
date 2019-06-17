@@ -6,7 +6,7 @@ const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   type: "Query",
   fields: () => ({
-    todo: {
+    allTodos: {
       type:  new GraphQLList(TodoType),
 
       resolve(parentValue, args) {
@@ -18,6 +18,19 @@ const RootQuery = new GraphQLObjectType({
           .catch(err => err);
       }
     },
+    todo: {
+        type:  TodoType,
+        args: { id: { type: GraphQLID } },
+        resolve(parentValue, args) {
+            const query = `SELECT * FROM todos WHERE id=$1`;
+            const values = [args.id];
+    
+            return db
+              .one(query, values)
+              .then(res => res)
+              .catch(err => err);
+          }
+      },
 
   })
 });
